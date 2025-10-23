@@ -1,13 +1,31 @@
-from pydantic import BaseModel, Field, confloat, constr
+from pydantic import BaseModel, Field, validator
 from typing import Optional
 from datetime import datetime
 
 class EntradaCreate(BaseModel):
     """Model para criação de entrada"""
-    valor: confloat(gt=0)
-    tipo: constr(min_length=1, max_length=50)
-    descricao: Optional[constr(max_length=200)] = None
+    valor: float
+    tipo: str
+    descricao: Optional[str] = None
     future_entry: Optional[datetime] = None
+
+    @validator('valor')
+    def validate_valor(cls, v):
+        if v <= 0:
+            raise ValueError('Valor deve ser maior que zero')
+        return v
+
+    @validator('tipo')
+    def validate_tipo(cls, v):
+        if not v or len(v) < 1 or len(v) > 50:
+            raise ValueError('Tipo deve ter entre 1 e 50 caracteres')
+        return v
+
+    @validator('descricao')
+    def validate_descricao(cls, v):
+        if v and len(v) > 200:
+            raise ValueError('Descrição deve ter no máximo 200 caracteres')
+        return v
 
 class EntradaResponse(BaseModel):
     """Model para resposta de entrada"""
@@ -25,10 +43,28 @@ class EntradaResponse(BaseModel):
 
 class SaidaCreate(BaseModel):
     """Model para criação de saída"""
-    valor: confloat(gt=0)
-    tipo: constr(min_length=1, max_length=50)
-    descricao: Optional[constr(max_length=200)] = None
+    valor: float
+    tipo: str
+    descricao: Optional[str] = None
     future_out: Optional[datetime] = None
+
+    @validator('valor')
+    def validate_valor(cls, v):
+        if v <= 0:
+            raise ValueError('Valor deve ser maior que zero')
+        return v
+
+    @validator('tipo')
+    def validate_tipo(cls, v):
+        if not v or len(v) < 1 or len(v) > 50:
+            raise ValueError('Tipo deve ter entre 1 e 50 caracteres')
+        return v
+
+    @validator('descricao')
+    def validate_descricao(cls, v):
+        if v and len(v) > 200:
+            raise ValueError('Descrição deve ter no máximo 200 caracteres')
+        return v
 
 class SaidaResponse(BaseModel):
     """Model para resposta de saída"""
