@@ -1,12 +1,12 @@
-from pydantic import BaseModel, Field, confloat
+from pydantic import BaseModel, Field, confloat, constr
 from typing import Optional
 from datetime import datetime
 
 class EntradaCreate(BaseModel):
     """Model para criação de entrada"""
     valor: confloat(gt=0)
-    tipo: str = Field(..., min_length=1, max_length=50)
-    descricao: Optional[str] = Field(None, max_length=200)
+    tipo: constr(min_length=1, max_length=50)
+    descricao: Optional[constr(max_length=200)] = None
     future_entry: Optional[datetime] = None
 
 class EntradaResponse(BaseModel):
@@ -26,8 +26,8 @@ class EntradaResponse(BaseModel):
 class SaidaCreate(BaseModel):
     """Model para criação de saída"""
     valor: confloat(gt=0)
-    tipo: str = Field(..., min_length=1, max_length=50)
-    descricao: Optional[str] = Field(None, max_length=200)
+    tipo: constr(min_length=1, max_length=50)
+    descricao: Optional[constr(max_length=200)] = None
     future_out: Optional[datetime] = None
 
 class SaidaResponse(BaseModel):
