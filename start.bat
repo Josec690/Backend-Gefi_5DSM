@@ -18,6 +18,6 @@ pip install -r requirements.txt
 
 
 echo Iniciando o servidor Flask...
-python main.py
+python app.py
 
 pause
