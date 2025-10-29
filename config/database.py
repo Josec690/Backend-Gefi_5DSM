@@ -1,9 +1,12 @@
 from pymongo import MongoClient
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Configurações do MongoDB
-MONGODB_URL = "mongodb+srv://gefinanca_db:2spcZYs1YuCnfaGe@cluster0.e6fdms9.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-DATABASE_NAME = "gefinanca_db"
+MONGODB_URL = os.getenv("MONGODB_URL")
+DATABASE_NAME = os.getenv("DATABASE_NAME")
 
 # Variáveis globais para o banco
 client = None
