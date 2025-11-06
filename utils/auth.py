@@ -5,13 +5,7 @@ from functools import wraps
 from bson import ObjectId
 from models.usuario_model import UsuarioModel
 
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
-
-SECRET_KEY = os.getenv("SECRET_KEY")
-JWT_ALGORITHM = os.getenv("JWT_ALGORITHM")
+SECRET_KEY = 'gefi-secret-key-2024-change-this-in-production'
 
 def gerar_token(usuario_id):
     """Gera token JWT"""
@@ -19,7 +13,7 @@ def gerar_token(usuario_id):
         'usuario_id': str(usuario_id),
         'exp': datetime.utcnow() + timedelta(days=7)
     }
-    return jwt.encode(payload, SECRET_KEY, algorithm=JWT_ALGORITHM)
+    return jwt.encode(payload, SECRET_KEY, algorithm='HS256')
 
 def token_obrigatorio(f):
     """Decorator para rotas que exigem autenticação"""
@@ -34,8 +28,8 @@ def token_obrigatorio(f):
             # Remove 'Bearer ' do token se existir
             if token.startswith('Bearer '):
                 token = token[7:]
-
-            dados = jwt.decode(token, SECRET_KEY, algorithms=[JWT_ALGORITHM])
+            
+            dados = jwt.decode(token, SECRET_KEY, algorithms=['HS256'])
             usuario_id = dados['usuario_id']
             
             # Verifica se usuário existe

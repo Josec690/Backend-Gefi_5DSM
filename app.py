@@ -8,20 +8,14 @@ from routes.saida_routes import saida_bp
 from routes.analise_routes import analise_bp
 from routes.investimento_routes import investimento_bp
 
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
-
-
 app = Flask(__name__)
 CORS(app)
 
-# Configuracoes
-app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
+# Configurações
+app.config['SECRET_KEY'] = 'gefi-secret-key-2024-change-this-in-production'
 
 # Inicializar banco de dados
-init_db()   
+init_db()
 
 # Registrar blueprints (rotas)
 app.register_blueprint(auth_bp, url_prefix='/api')
