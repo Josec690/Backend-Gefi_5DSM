@@ -15,6 +15,7 @@ class SaidaController:
             categoria = dados.get('categoria', 'Outros').strip()
             data = dados.get('data', datetime.utcnow().isoformat())
             eh_recorrente = dados.get('eh_recorrente', False)
+            data_primeira_recorrencia = dados.get('data_primeira_recorrencia')
             
             if not descricao:
                 return jsonify({'erro': 'Descrição é obrigatória'}), 400
