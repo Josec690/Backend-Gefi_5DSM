@@ -19,11 +19,9 @@ wheels/
 .installed.cfg
 *.egg
 
-.env
+
 .venv
-env/
 venv/
-ENV/
 
 .pytest_cache/
 .coverage

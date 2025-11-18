@@ -1,9 +1,13 @@
 from pymongo import MongoClient
+from dotenv import load_dotenv
 import os
 
+load_dotenv()
+
+
 # Configurações do MongoDB
-MONGODB_URL = "mongodb+srv://gefinanca_db:2spcZYs1YuCnfaGe@cluster0.e6fdms9.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-DATABASE_NAME = "gefinanca_db"
+MONGODB_URL = os.getenv('MONGODB_URL')
+DATABASE_NAME = os.getenv('DATABASE_NAME')
 
 # Variáveis globais para o banco
 client = None
@@ -27,7 +31,7 @@ def init_db():
         
         # Testar conexão
         client.server_info()
-        print("✅ Conectado ao MongoDB Atlas com sucesso!")
+        print("✅ Conectado ao MongoDB com sucesso!")
         
     except Exception as e:
         print(f"❌ Erro ao conectar ao MongoDB: {e}")

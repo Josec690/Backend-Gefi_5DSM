@@ -7,12 +7,18 @@ from routes.entrada_routes import entrada_bp
 from routes.saida_routes import saida_bp
 from routes.analise_routes import analise_bp
 from routes.investimento_routes import investimento_bp
+from routes.smtp_routes import smtp_bp
+from routes.recuperacao_senha_routes import recuperacao_bp
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
 
 # Configurações
-app.config['SECRET_KEY'] = 'gefi-secret-key-2024-change-this-in-production'
+app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
 
 # Inicializar banco de dados
 init_db()
@@ -24,6 +30,8 @@ app.register_blueprint(entrada_bp, url_prefix='/api')
 app.register_blueprint(saida_bp, url_prefix='/api')
 app.register_blueprint(analise_bp, url_prefix='/api')
 app.register_blueprint(investimento_bp, url_prefix='/api')
+app.register_blueprint(recuperacao_bp, url_prefix='/api')
+app.register_blueprint(smtp_bp, url_prefix='/api')
 
 @app.route('/', methods=['GET'])
 def home():
@@ -67,4 +75,5 @@ def home():
     }, 200
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    # Evita erro WinError 10038 no Windows ao usar reloader
+    app.run(debug=True, host='0.0.0.0', port=5000, use_reloader=False)
