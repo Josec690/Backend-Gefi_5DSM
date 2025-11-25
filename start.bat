@@ -12,9 +12,6 @@ if not exist venv (
 echo Ativando o ambiente virtual...
 call venv\Scripts\activate
 
-echo Atualizando dependencias existentes...
-pip freeze > requirements.txt
-
 echo Instalando dependencias do backend...
 pip install -r requirements.txt
 
