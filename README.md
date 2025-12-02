@@ -16,10 +16,19 @@ Antes de começar, certifique-se de ter instalado:
 
 ## 🚀 Instalação e Execução
 
+### 🔹 Clonar o repositório
+
+```bash
+git clone https://github.com/seu-usuario/seu-repo.git
+
+```
+
+---
+
 ### Método 1: Script Automático (Windows)
 
 ```bash
-cd Backend
+cd seu-repo
 .\start.bat
 ```
 
